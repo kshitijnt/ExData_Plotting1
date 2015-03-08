@@ -1,0 +1,11 @@
+setwd("~/Documents/Data Science")
+powerinfo <- read.csv("./household_power_consumption.txt",header=TRUE,sep=";",na.strings="?")
+powerinfo <- powerinfo[powerinfo$Date =="1/2/2007" | powerinfo$Date =="2/2/2007",]
+dt = paste(powerinfo$Date,powerinfo$Time)
+dt <- strptime(dt,format="%d/%m/%Y %T")
+plot(dt,powerinfo$Sub_metering_1,type="l",ylab="Energy Sub Metering",xlab="")
+lines(dt,powerinfo$Sub_metering_2,col="red")
+lines(dt,powerinfo$Sub_metering_3,col="blue")
+legend("topright",legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"),col = c("black","red","blue"),lty=1)
+dev.copy(png,file="plot3.png",width=480,height=480)
+dev.off()
